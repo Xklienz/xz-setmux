@@ -14,6 +14,6 @@
 # INFORMATION
  (setmux.sh) for 32bit android devices.
 
- (setmux64.sh ) for 64bit android devices.
+ (setmux64.sh) for 64bit android devices.
  
  
