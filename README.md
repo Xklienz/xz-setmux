@@ -1,4 +1,4 @@
-# Message
-Sorry, the script is being repaired.
-Please come back later
- 
+# Whats is setmux
+setmux adalah program termux untuk mengubah tampilan termux Anda, 
+seperti: background termux, latar depan termux,
+tampilan awal termux, dll.
