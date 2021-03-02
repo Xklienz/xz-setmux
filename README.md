@@ -1,4 +1,4 @@
 # Whats is setmux
-setmux adalah program termux untuk mengubah tampilan termux Anda, 
-seperti: background termux, latar depan termux,
-tampilan awal termux, dll.
+setmux is a termux program to change the appearance of your termux,
+such as: termux background, termux foreground,
+termux initial display, etc.
