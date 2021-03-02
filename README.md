@@ -4,7 +4,7 @@ such as: termux background, termux foreground,
 termux initial display, etc.
 
 # How to install
-  - Multilane command:
+  - Multiline command:
    ```
    pkg update && pkg upgrade
    pkg install git
