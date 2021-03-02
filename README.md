@@ -4,7 +4,7 @@ such as: termux background, termux foreground,
 termux initial display, etc.
 
 # How to install
-  -Multilane command:
+  - Multilane command:
    ```
    pkg update && pkg upgrade
    pkg install git
@@ -12,7 +12,7 @@ termux initial display, etc.
    cd xz-setmux
    bash setmuxFV.sh
    ```
-   -Oneline command:
+   - Oneline command:
    ```
    pkg update; pkg upgrade; pkg install git; git clone https://github.com/Xklienz/xz-setmux; cd xz-setmux; bash setmuxFV.sh
    ```
