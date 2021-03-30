@@ -8,7 +8,7 @@ termux initial display, etc.
    ```
    pkg update && pkg upgrade
    pkg install git
-   git clone https://github.com/XklienZ/xz-setmux
+   git clone https://github.com/Xklienz/xz-setmux
    cd xz-setmux
    bash setmuxFV.sh
    ```
