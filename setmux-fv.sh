@@ -5,6 +5,10 @@
 #https://m.facebook.com/XklienZ
 
 
+#Jika anda ingin masuk direktori dengan mudah
+#anda bisa menggunakan script dibawah ini :
+#https://github.com/XklienZ/als-command
+
 
 
 trap "echo -e '\e[25?h\e[0m'; exit 1" SIGINT SIGTSTP SIGQUIT;
@@ -136,11 +140,29 @@ function key_boardarrow () {
 	     	echo;
 			if echo -en "\e[8m"; find -name termux.properties; then
 				echo -en "\e[0m"
-				echo -e "\n\e[1;31m[X] sudah ada extra keyboard di termux anda!\e[0m"; echo -e "\e[25?h"; sleep 3;
-				exit 1;
+				if grep "extra-keys = [['ESC','/','-','HOME','UP','END','PGUP'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT','PGDN']]" ~/.termux/termux.properties; then					
+					echo -e "\n\e[1;31m[X] sudah ada extra keyboard di termux anda!\e[0m"; echo -e "\e[25?h"; sleep 3;
+					exit 1;
+				else
+					if [ -s termux.properties ]; then
+						echo -e "\e[1;34mWARNING!!!\n\e[1;37mfile termux.properties akan dihapus,\nsilahkan pindahkan atau mengganti nama\nterlebih dahulu\e[0m";
+						echo -en "Lanjut hapus? y/n : "; read rd-keyb;
+						if [ "$rd-keyb" == "y" ]; then
+							rm -v ~/.termux/termux.properties; 
+						elif [ "$rd-keyb" == "n" ]; then
+							exit 1;
+						else
+							exit 1;
+						fi;
+					else
+						:
+					fi;
+				fi;
 			fi;
 		done;
 	else
+		:
+	fi;
 		clear;
 		echo -e "\e[25?l\e[1;36m[L] make a keyboard spot\e[0m"; sleep 1;
 		#create a (.termux) file if the user doesn't have one
@@ -156,7 +178,6 @@ function key_boardarrow () {
 		echo "extra-keys = [['ESC','/','-','HOME','UP','END','PGUP'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT','PGDN']]" > /data/data/com.termux/files/home/.termux/termux.properties
 		sleep 1; echo -e "\e[1;32m[Z] successful...\e[1;0m\a"; sleep 2;
 		echo -e "\a\e[1;33m[i] buka NEW SESSION atau login ulang termux\n    agar extra keyboard terlihat!\e[1;0m\e[25?h\n"; sleep 3; exit 1
-	fi;
 }
 
 
@@ -216,7 +237,7 @@ function main_default_properties () {
 
 
 function main_properties () {
-
+	varstop="echo hentikan script CTRL+C";
 	cd $HOME
 	if [ -d .termux ]; then
 			cd .termux;
@@ -237,7 +258,7 @@ function main_properties () {
 						else
 							if [ -f colors.properties ]; then
 								clear; mv colors.properties colors.properties$rename_properties;
-								echo -e "\e[1;32m[Z] berhasil mengganti nama file..\e[0m"; sleep 2; break; ###DISINI LAN_NUE####; break;
+								echo -e "\e[1;32m[Z] berhasil mengganti nama file..\e[0m"; sleep 2; break;
 							else
 								echo -e "\e[1;31m[X] kesalahan tidak diketahui!\nfile untuk mengganti color termux tidak dapat ditemukan!\e[0m"; sleep 1;
 								exit 1;
@@ -257,8 +278,10 @@ function main_properties () {
 	else
 		cd $HOME; mkdir .termux; cd .termux; touch colors.properties; cd $HOME;
 	fi;
+whl=true;
+while $whl; do
 	while true; do
-		clear; echo -e "
+		clear; echo -e "\e[0m"; $varstop; echo -e "
   \e[0m*PILIH WARNA UNTUK \e[1;36mBACKGROUND\e[0m TERMUX ANDA*\n
  \e[1;34m(\e[1;36m1\e[1;34m)\e[1;37m.merah      \e[1;34m(\e[1;36m10\e[1;34m)\e[1;37m.hijau jeruk nipis
  \e[1;34m(\e[1;36m2\e[1;34m)\e[1;37m.merah tua  \e[1;34m(\e[1;36m11\e[1;34m)\e[1;37m.magenta
@@ -269,7 +292,7 @@ function main_properties () {
  \e[1;34m(\e[1;36m7\e[1;34m)\e[1;37m.ungu       \e[1;34m(\e[1;36m16\e[1;34m)\e[1;37m.oren jeruk
  \e[1;34m(\e[1;36m8\e[1;34m)\e[1;37m.kuning     \e[1;34m(\e[1;36m17\e[1;34m)\e[1;37m.cokelat
  \e[1;34m(\e[1;36m9\e[1;34m)\e[1;37m.hijau      \e[1;34m(\e[1;36m18\e[1;34m)\e[1;37m.zaitun";
-		declare -A color_background=(["1"]="#FF0000" ["2"]="#800000" ["3"]="#00FFFF" ["4"]="#0000FF" ["5"]="#0000A0" ["6"]="#ADD8E6" ["7"]="#800080" ["8"]="#FFFF00" ["9"]="#008000" ["10"]="#00FF00" ["11"]="FF00FF" ["12"]="#FFFFFF" ["13"]="#C0C0C0" ["14"]="#808080" ["15"]="#000000" ["16"]="#FFA500" ["17"]="#A52A2A" ["18"]="#808000");
+		declare -A color_background=(["1"]="#FF0000" ["2"]="#800000" ["3"]="#00FFFF" ["4"]="#0000FF" ["5"]="#0000A0" ["6"]="#ADD8E6" ["7"]="#800080" ["8"]="#FFFF00" ["9"]="#008000" ["10"]="#00FF00" ["11"]="#FF00FF" ["12"]="#FFFFFF" ["13"]="#C0C0C0" ["14"]="#808080" ["15"]="#000000" ["16"]="#FFA500" ["17"]="#A52A2A" ["18"]="#808000");
 		echo -e "\e[25?h[E] example : color > 15";
 		echo -en "color > "; read input_color_bg;
 		convert_color_bg="${color_background["${input_color_bg:-none}"]}";
@@ -282,9 +305,9 @@ function main_properties () {
 		fi;
 	done;
 	while true; do
-		clear; echo -e "   \e[0m*PILIH WARNA UNTUK \e[1;36mFOREGROUND\e[0m TERMUX ANDA*";
+		clear; echo -e "\e[0m"; $varstop; echo -e "   \e[0m*PILIH WARNA UNTUK \e[1;36mFOREGROUND\e[0m TERMUX ANDA*";
 		color_properties;
-		declare -A color_foreground=(["1"]="#FF0000" ["2"]="#800000" ["3"]="#00FFFF" ["4"]="#0000FF" ["5"]="#0000A0" ["6"]="#ADD8E6" ["7"]="#800080" ["8"]="#FFFF00" ["9"]="#008000" ["10"]="#00FF00" ["11"]="FF00FF" ["12"]="#FFFFFF" ["13"]="#C0C0C0" ["14"]="#808080" ["15"]="#000000" ["16"]="#FFA500" ["17"]="#A52A2A" ["18"]="#808000");
+		declare -A color_foreground=(["1"]="#FF0000" ["2"]="#800000" ["3"]="#00FFFF" ["4"]="#0000FF" ["5"]="#0000A0" ["6"]="#ADD8E6" ["7"]="#800080" ["8"]="#FFFF00" ["9"]="#008000" ["10"]="#00FF00" ["11"]="#FF00FF" ["12"]="#FFFFFF" ["13"]="#C0C0C0" ["14"]="#808080" ["15"]="#000000" ["16"]="#FFA500" ["17"]="#A52A2A" ["18"]="#808000");
 		echo -en "color > "; read input_color_fg;
 		convert_color_fg="${color_foreground["${input_color_fg:-none}"]}";
 		if [ "$input_color_fg" == "$input_color_bg" ]; then
@@ -298,9 +321,9 @@ function main_properties () {
 		fi;
 	done;
 	while true; do
-		clear; echo -e "   \e[0m*PILIH WARNA UNTUK \e[1;36mCURSOR\e[0m TERMUX ANDA*";
+		clear; echo -e "\e[0m"; $varstop; echo -e "   \e[0m*PILIH WARNA UNTUK \e[1;36mCURSOR\e[0m TERMUX ANDA*";
 		color_properties;
-		declare -A color_cursor=(["1"]="#FF0000" ["2"]="#800000" ["3"]="#00FFFF" ["4"]="#0000FF" ["5"]="#0000A0" ["6"]="#ADD8E6" ["7"]="#800080" ["8"]="#FFFF00" ["9"]="#008000" ["10"]="#00FF00" ["11"]="FF00FF" ["12"]="#FFFFFF" ["13"]="#C0C0C0" ["14"]="#808080" ["15"]="#000000" ["16"]="#FFA500" ["17"]="#A52A2A" ["18"]="#808000");
+		declare -A color_cursor=(["1"]="#FF0000" ["2"]="#800000" ["3"]="#00FFFF" ["4"]="#0000FF" ["5"]="#0000A0" ["6"]="#ADD8E6" ["7"]="#800080" ["8"]="#FFFF00" ["9"]="#008000" ["10"]="#00FF00" ["11"]="#FF00FF" ["12"]="#FFFFFF" ["13"]="#C0C0C0" ["14"]="#808080" ["15"]="#000000" ["16"]="#FFA500" ["17"]="#A52A2A" ["18"]="#808000");
 		echo -en "color > "; read input_color_cursor;
 		convert_color_cursor="${color_cursor["${input_color_cursor:-none}"]}";
 		if [ "$input_color_cursor" != "$input_color_fg" ] && [ "$input_color_cursor" != "$input_color_bg" ]; then
@@ -320,9 +343,8 @@ foreground:	$convert_color_fg
 cursor:	$convert_color_cursor
 
 " > colors.properties;
-clear; echo -e "\e[1;32m[Z] theme termux anda sudah di ganti\e[0m"
-echo -e "\e[1;33m[i] harap login ulang termux atau membuka\n    NEW SESSION!\e[0m\n"; sleep 1
-exit 0;
+termux-reload-settings;
+done;
 }
 
 
@@ -2916,4 +2938,4 @@ function main_menu ()  {
 
 
 #Start Program
-	is_this_termux; main_menu;
+main_menu;
