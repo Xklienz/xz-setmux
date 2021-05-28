@@ -2938,4 +2938,4 @@ function main_menu ()  {
 
 
 #Start Program
-main_menu;
+is_this_termux; main_menu;
