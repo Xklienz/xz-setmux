@@ -6,6 +6,7 @@ termux initial display, etc.
 # How to install
   - Multiline command:
    ```
+   cd /data/data/com.termux/files/home
    pkg update && pkg upgrade
    pkg install git
    git clone https://github.com/Xklienz/xz-setmux
@@ -14,5 +15,5 @@ termux initial display, etc.
    ```
    - Oneline command:
    ```
-   pkg update; pkg upgrade; pkg install git; git clone https://github.com/Xklienz/xz-setmux; cd xz-setmux; bash setmuxFV.sh
+   cd /data/data/com.termux/files/home; pkg update; pkg upgrade; pkg install git; git clone https://github.com/Xklienz/xz-setmux; cd xz-setmux; bash setmuxFV.sh
    ```
